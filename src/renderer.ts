@@ -625,15 +625,14 @@ class Renderer extends EventEmitter<RendererEvents> {
     }
 
     // Determine the width of the waveform
-    const pixelRatio = window.devicePixelRatio || 1
     const parentWidth = this.scrollContainer.clientWidth
     const scrollWidth = Math.ceil(audioData.duration * (this.options.minPxPerSec || 0))
 
     // Whether the container should scroll
     this.isScrollable = scrollWidth > parentWidth
     const useParentWidth = this.options.fillParent && !this.isScrollable
-    // Width of the waveform in pixels
-    const width = (useParentWidth ? parentWidth : scrollWidth) * pixelRatio
+    // Width of the waveform in CSS pixels (not physical pixels)
+    const width = (useParentWidth ? parentWidth : scrollWidth)
 
     // Set the width of the wrapper
     this.wrapper.style.width = useParentWidth ? '100%' : `${scrollWidth}px`
